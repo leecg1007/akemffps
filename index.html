@@ -5,55 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>마들렌</title>
     <link rel="stylesheet" href="style.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/wordcloud@1.1.2/src/wordcloud2.min.js"></script>
 </head>
 <body>
-    <h1>단어구름</h1>
+    <h1>문장구름</h1>
     <form id="wordForm" style="margin-bottom:20px;">
-        <input type="text" id="wordInput" placeholder="단어 입력" required />
+        <input type="text" id="wordInput" placeholder="문장 입력" required />
         <button type="submit">추가</button>
     </form>
-    <canvas id="wordcloud"></canvas>
-    <script src="https://cdn.jsdelivr.net/npm/wordcloud@1.2.2/src/wordcloud2.min.js"></script>
-    <script>
-        // 사용자 입력만으로 단어구름 생성
-        let words = [];
-
-        function drawWordCloud() {
-            WordCloud(document.getElementById('wordcloud'), {
-                list: words,
-                gridSize: 12,
-                weightFactor: function (size) {
-                    return Math.max(17, Math.min(size * 10, 120));
-                },
-                fontFamily: 'Nanum Gothic, sans-serif',
-                color: 'random-dark',
-                backgroundColor: '#fff',
-                rotateRatio: 0.2,
-                minSize: 16
-            });
-        }
-
-        drawWordCloud();
-
-        document.getElementById('wordForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const word = document.getElementById('wordInput').value.trim();
-            if(word) {
-                let found = false;
-                for (let i = 0; i < words.length; i++) {
-                    if (words[i][0] === word) {
-                        words[i][1] += 1;
-                        found = true;
-                        break;
-                    }
-                }
-                if (!found) {
-                    words.push([word, 1]);
-                }
-                drawWordCloud();
-                document.getElementById('wordInput').value = '';
-            }
-        });
-    </script>
+    <canvas id="wordcloud" width="700" height="400"></canvas>
 </body>
+<script src="script.js"></script>
 </html>
